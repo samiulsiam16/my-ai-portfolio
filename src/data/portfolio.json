@@ -1,74 +1,69 @@
 {
   "personal": {
     "name": "Alex Chen",
-    "role": "AI Engineer Intern",
+    "role": "Senior Software Engineer | AI/ML Architect",
     "location": "San Francisco, CA",
     "email": "alex.chen@example.com",
     "github": "https://github.com",
     "linkedin": "https://linkedin.com",
     "twitter": "https://twitter.com",
-    "bio": "Passionate AI Engineer Intern specializing in Deep Learning, Natural Language Processing, and Computer Vision. Dedicated to building intelligent systems that solve real-world problems."
+    "bio": "Architecting scalable distributed systems and neural-powered applications. Specialized in high-performance computing, LLM orchestration, and cloud-native automation."
   },
   "skills": [
-    { "name": "Python", "category": "Languages" },
-    { "name": "PyTorch", "category": "Frameworks" },
-    { "name": "TensorFlow", "category": "Frameworks" },
-    { "name": "Scikit-Learn", "category": "Frameworks" },
-    { "name": "NLP", "category": "Specializations" },
-    { "name": "Computer Vision", "category": "Specializations" },
-    { "name": "Docker", "category": "Tools" },
-    { "name": "AWS", "category": "Tools" }
+    { "name": "Python", "category": "AI/ML", "level": 95 },
+    { "name": "C# / .NET", "category": "Backend", "level": 90 },
+    { "name": "TypeScript", "category": "Frontend", "level": 85 },
+    { "name": "PyTorch", "category": "AI/ML", "level": 92 },
+    { "name": "Kubernetes", "category": "DevOps", "level": 80 },
+    { "name": "PostgreSQL", "category": "Database", "level": 88 },
+    { "name": "n8n / Zapier", "category": "Automation", "level": 90 },
+    { "name": "TensorFlow", "category": "AI/ML", "level": 85 }
   ],
   "projects": [
     {
-      "title": "Neural Vision System",
-      "description": "A real-time object detection and tracking system using YOLOv8 and custom-trained datasets for industrial safety monitoring.",
-      "tags": ["Computer Vision", "PyTorch", "YOLOv8"],
-      "image": "https://picsum.photos/seed/vision/800/600",
-      "link": "#"
+      "title": "Neural-Flow Engine",
+      "description": "A distributed workflow engine that uses LLMs to dynamically route tasks based on real-time data streams.",
+      "tags": ["Python", "Redis", "OpenAI"],
+      "image": "https://picsum.photos/seed/neural/800/600",
+      "link": "#",
+      "code": "def route_task(context):\n    # Neural routing logic\n    prediction = model.predict(context)\n    return 'high_priority' if prediction > 0.8 else 'default'"
     },
     {
-      "title": "Semantic Search Engine",
-      "description": "Developed a vector-based search engine using Sentence-Transformers and Pinecone for efficient document retrieval across large datasets.",
-      "tags": ["NLP", "Vector DB", "Transformers"],
-      "image": "https://picsum.photos/seed/search/800/600",
-      "link": "#"
+      "title": "Quantum-Safe Ledger",
+      "description": "A blockchain implementation using post-quantum cryptographic algorithms for secure financial transactions.",
+      "tags": ["C#", "Cryptography", "Azure"],
+      "image": "https://picsum.photos/seed/crypto/800/600",
+      "link": "#",
+      "code": "public async Task<bool> VerifyTransaction(Transaction tx) {\n    var isValid = await _quantumProvider.VerifyAsync(tx.Signature, tx.Data);\n    return isValid;\n}"
     },
     {
-      "title": "Autonomous Drone Navigation",
-      "description": "Implemented reinforcement learning algorithms to enable a simulated drone to navigate complex obstacle courses autonomously.",
-      "tags": ["Reinforcement Learning", "Simulation", "Python"],
-      "image": "https://picsum.photos/seed/drone/800/600",
-      "link": "#"
-    },
-    {
-      "title": "Sentiment Analysis Dashboard",
-      "description": "A real-time social media sentiment analysis tool using BERT and Streamlit for visualizing public opinion on emerging tech trends.",
-      "tags": ["BERT", "Streamlit", "Data Viz"],
-      "image": "https://picsum.photos/seed/sentiment/800/600",
+      "title": "Auto-DevOps Agent",
+      "description": "An autonomous agent that monitors infrastructure and automatically generates PRs to fix security vulnerabilities.",
+      "tags": ["Go", "Kubernetes", "LLM"],
+      "image": "https://picsum.photos/seed/devops/800/600",
       "link": "#"
     }
   ],
   "experience": [
     {
-      "company": "Tech Innovators Lab",
-      "role": "Machine Learning Research Intern",
-      "period": "June 2023 - Present",
-      "description": "Working on optimizing large language models for edge devices and conducting research on multi-modal learning."
+      "company": "Neural Systems Inc.",
+      "role": "Lead AI Engineer",
+      "period": "2023 - Present",
+      "description": "Leading the development of agentic workflows and multi-modal RAG systems for enterprise clients."
     },
     {
-      "company": "University AI Society",
-      "role": "Project Lead",
-      "period": "Sept 2022 - May 2023",
-      "description": "Led a team of 5 students to develop an AI-powered campus navigation app using computer vision."
+      "company": "Global Tech Corp",
+      "role": "Software Engineer II",
+      "period": "2021 - 2023",
+      "description": "Optimized high-throughput microservices using .NET Core and implemented automated CI/CD pipelines."
     }
   ],
   "education": [
     {
       "school": "Stanford University",
-      "degree": "B.S. in Computer Science (AI Track)",
-      "period": "2020 - 2024",
-      "description": "Relevant coursework: Deep Learning, Probabilistic Graphical Models, Computer Vision."
+      "degree": "M.S. in Computer Science (AI Specialization)",
+      "period": "2019 - 2021",
+      "description": "Research focused on Transformer architectures and distributed training."
     }
   ]
 }
