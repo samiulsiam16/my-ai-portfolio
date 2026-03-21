@@ -1,82 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Fredoka", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-midnight: #020617;
-  --color-indigo-deep: #1e1b4b;
-  --color-mint: #2dd4bf;
-  --color-cyber-orange: #f97316;
-  --color-electric-cyan: #22d3ee;
-  --color-circuit-orange: #ea580c;
+  --color-bg-playful: #f0f4ff;
+  --color-card-yellow: #ffde59;
+  --color-card-pink: #ff91e0;
+  --color-card-blue: #5ce1e6;
+  --color-card-green: #7ed957;
+  --color-ink: #1a1a1a;
 }
 
 @layer base {
   body {
-    @apply bg-midnight text-slate-200 font-sans antialiased selection:bg-mint/30 selection:text-mint;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.5) 0, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.5) 0, transparent 50%);
+    @apply bg-bg-playful text-ink font-sans antialiased selection:bg-card-pink selection:text-white;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply text-white font-extrabold tracking-tight;
+    @apply text-ink font-black tracking-tight uppercase;
   }
 }
 
-.glass-card {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-2xl;
+.cartoon-card {
+  @apply bg-white border-4 border-ink rounded-3xl shadow-[8px_8px_0px_0px_rgba(26,26,26,1)] transition-all duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_rgba(26,26,26,1)];
 }
 
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(100px, auto);
-  gap: 1.5rem;
+.cartoon-btn {
+  @apply px-8 py-4 bg-card-yellow border-4 border-ink rounded-2xl font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all;
 }
 
-.grainy-gradient {
-  background: linear-gradient(45deg, var(--color-indigo-deep), var(--color-midnight));
-  position: relative;
-}
-
-.grainy-gradient::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.05;
-  pointer-events: none;
-}
-
-.text-neon {
-  @apply text-transparent bg-clip-text bg-gradient-to-r from-mint via-electric-cyan to-cyber-orange;
-  filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.3));
-}
-
-.code-block {
-  @apply font-mono text-sm p-4 rounded-xl bg-black/40 border border-white/5 overflow-x-auto;
-}
-
-.seaborn-gradient {
-  background: linear-gradient(to right, #4c51bf, #6b46c1, #d53f8c, #f6ad55);
+.text-stroke {
+  -webkit-text-stroke: 1px var(--color-ink);
 }
 
 .section-padding {
-  @apply py-24 px-6 md:px-12 lg:px-24;
+  @apply py-20 px-6 md:px-12 lg:px-24;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-midnight;
+  @apply bg-bg-playful;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 rounded-full border-2 border-midnight hover:bg-mint/40 transition-colors;
+  @apply bg-ink rounded-full border-4 border-bg-playful;
 }

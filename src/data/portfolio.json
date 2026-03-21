@@ -1,69 +1,63 @@
 {
   "personal": {
-    "name": "Alex Chen",
-    "role": "Senior Software Engineer | AI/ML Architect",
-    "location": "San Francisco, CA",
-    "email": "alex.chen@example.com",
+    "name": "Md. Samiul Ahasan",
+    "role": "Software Engineering Student & AI Learner",
+    "location": "Dhaka, Bangladesh",
+    "email": "samiul.ahasan@example.com",
     "github": "https://github.com",
     "linkedin": "https://linkedin.com",
     "twitter": "https://twitter.com",
-    "bio": "Architecting scalable distributed systems and neural-powered applications. Specialized in high-performance computing, LLM orchestration, and cloud-native automation."
+    "bio": "I'm a passionate learner currently studying Software Engineering at Daffodil International University. I love exploring the world of code, from low-level C to high-level AI automation with n8n and Zapier."
   },
   "skills": [
-    { "name": "Python", "category": "AI/ML", "level": 95 },
-    { "name": "C# / .NET", "category": "Backend", "level": 90 },
-    { "name": "TypeScript", "category": "Frontend", "level": 85 },
-    { "name": "PyTorch", "category": "AI/ML", "level": 92 },
-    { "name": "Kubernetes", "category": "DevOps", "level": 80 },
-    { "name": "PostgreSQL", "category": "Database", "level": 88 },
-    { "name": "n8n / Zapier", "category": "Automation", "level": 90 },
-    { "name": "TensorFlow", "category": "AI/ML", "level": 85 }
+    { "name": "HTML/CSS", "category": "Frontend", "level": 80 },
+    { "name": "C / Java", "category": "Backend", "level": 75 },
+    { "name": "Python (Django)", "category": "Backend", "level": 70 },
+    { "name": "C# .NET API", "category": "Backend", "level": 65 },
+    { "name": "NumPy / Pandas", "category": "Data Science", "level": 60 },
+    { "name": "Seaborn / Matplotlib", "category": "Data Science", "level": 60 },
+    { "name": "n8n / Zapier", "category": "AI Automation", "level": 70 },
+    { "name": "AI/ML Basics", "category": "AI/ML", "level": 40 }
   ],
   "projects": [
     {
-      "title": "Neural-Flow Engine",
-      "description": "A distributed workflow engine that uses LLMs to dynamically route tasks based on real-time data streams.",
-      "tags": ["Python", "Redis", "OpenAI"],
-      "image": "https://picsum.photos/seed/neural/800/600",
+      "title": "C System Utilities",
+      "description": "A collection of mini-projects built in C to understand memory management and system-level programming.",
+      "tags": ["C", "Low-level"],
+      "image": "https://picsum.photos/seed/c-code/800/600",
       "link": "#",
-      "code": "def route_task(context):\n    # Neural routing logic\n    prediction = model.predict(context)\n    return 'high_priority' if prediction > 0.8 else 'default'"
+      "code": "int main() {\n  printf(\"Hello, System!\\n\");\n  return 0;\n}"
     },
     {
-      "title": "Quantum-Safe Ledger",
-      "description": "A blockchain implementation using post-quantum cryptographic algorithms for secure financial transactions.",
-      "tags": ["C#", "Cryptography", "Azure"],
-      "image": "https://picsum.photos/seed/crypto/800/600",
+      "title": "Python Data Insights",
+      "description": "Mini projects using Pandas and Seaborn to visualize interesting datasets and find hidden patterns.",
+      "tags": ["Python", "Pandas", "Seaborn"],
+      "image": "https://picsum.photos/seed/python-data/800/600",
       "link": "#",
-      "code": "public async Task<bool> VerifyTransaction(Transaction tx) {\n    var isValid = await _quantumProvider.VerifyAsync(tx.Signature, tx.Data);\n    return isValid;\n}"
+      "code": "import pandas as pd\ndf = pd.read_csv('data.csv')\ndf.head()"
     },
     {
-      "title": "Auto-DevOps Agent",
-      "description": "An autonomous agent that monitors infrastructure and automatically generates PRs to fix security vulnerabilities.",
-      "tags": ["Go", "Kubernetes", "LLM"],
-      "image": "https://picsum.photos/seed/devops/800/600",
+      "title": "AI Automation Flows",
+      "description": "Building smart workflows using n8n and Zapier to automate repetitive tasks and integrate different apps.",
+      "tags": ["n8n", "Zapier", "Automation"],
+      "image": "https://picsum.photos/seed/ai-bot/800/600",
       "link": "#"
     }
   ],
   "experience": [
     {
-      "company": "Neural Systems Inc.",
-      "role": "Lead AI Engineer",
+      "company": "Daffodil International University",
+      "role": "Software Engineering Student",
       "period": "2023 - Present",
-      "description": "Leading the development of agentic workflows and multi-modal RAG systems for enterprise clients."
-    },
-    {
-      "company": "Global Tech Corp",
-      "role": "Software Engineer II",
-      "period": "2021 - 2023",
-      "description": "Optimized high-throughput microservices using .NET Core and implemented automated CI/CD pipelines."
+      "description": "Learning core software engineering principles, data structures, and algorithms."
     }
   ],
   "education": [
     {
-      "school": "Stanford University",
-      "degree": "M.S. in Computer Science (AI Specialization)",
-      "period": "2019 - 2021",
-      "description": "Research focused on Transformer architectures and distributed training."
+      "school": "Daffodil International University",
+      "degree": "B.Sc. in Software Engineering",
+      "period": "2023 - 2027",
+      "description": "Focusing on building a strong foundation in software development and AI."
     }
   ]
 }
