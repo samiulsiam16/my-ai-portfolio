@@ -1,0 +1,74 @@
+{
+  "personal": {
+    "name": "Alex Chen",
+    "role": "AI Engineer Intern",
+    "location": "San Francisco, CA",
+    "email": "alex.chen@example.com",
+    "github": "https://github.com",
+    "linkedin": "https://linkedin.com",
+    "twitter": "https://twitter.com",
+    "bio": "Passionate AI Engineer Intern specializing in Deep Learning, Natural Language Processing, and Computer Vision. Dedicated to building intelligent systems that solve real-world problems."
+  },
+  "skills": [
+    { "name": "Python", "category": "Languages" },
+    { "name": "PyTorch", "category": "Frameworks" },
+    { "name": "TensorFlow", "category": "Frameworks" },
+    { "name": "Scikit-Learn", "category": "Frameworks" },
+    { "name": "NLP", "category": "Specializations" },
+    { "name": "Computer Vision", "category": "Specializations" },
+    { "name": "Docker", "category": "Tools" },
+    { "name": "AWS", "category": "Tools" }
+  ],
+  "projects": [
+    {
+      "title": "Neural Vision System",
+      "description": "A real-time object detection and tracking system using YOLOv8 and custom-trained datasets for industrial safety monitoring.",
+      "tags": ["Computer Vision", "PyTorch", "YOLOv8"],
+      "image": "https://picsum.photos/seed/vision/800/600",
+      "link": "#"
+    },
+    {
+      "title": "Semantic Search Engine",
+      "description": "Developed a vector-based search engine using Sentence-Transformers and Pinecone for efficient document retrieval across large datasets.",
+      "tags": ["NLP", "Vector DB", "Transformers"],
+      "image": "https://picsum.photos/seed/search/800/600",
+      "link": "#"
+    },
+    {
+      "title": "Autonomous Drone Navigation",
+      "description": "Implemented reinforcement learning algorithms to enable a simulated drone to navigate complex obstacle courses autonomously.",
+      "tags": ["Reinforcement Learning", "Simulation", "Python"],
+      "image": "https://picsum.photos/seed/drone/800/600",
+      "link": "#"
+    },
+    {
+      "title": "Sentiment Analysis Dashboard",
+      "description": "A real-time social media sentiment analysis tool using BERT and Streamlit for visualizing public opinion on emerging tech trends.",
+      "tags": ["BERT", "Streamlit", "Data Viz"],
+      "image": "https://picsum.photos/seed/sentiment/800/600",
+      "link": "#"
+    }
+  ],
+  "experience": [
+    {
+      "company": "Tech Innovators Lab",
+      "role": "Machine Learning Research Intern",
+      "period": "June 2023 - Present",
+      "description": "Working on optimizing large language models for edge devices and conducting research on multi-modal learning."
+    },
+    {
+      "company": "University AI Society",
+      "role": "Project Lead",
+      "period": "Sept 2022 - May 2023",
+      "description": "Led a team of 5 students to develop an AI-powered campus navigation app using computer vision."
+    }
+  ],
+  "education": [
+    {
+      "school": "Stanford University",
+      "degree": "B.S. in Computer Science (AI Track)",
+      "period": "2020 - 2024",
+      "description": "Relevant coursework: Deep Learning, Probabilistic Graphical Models, Computer Vision."
+    }
+  ]
+}
