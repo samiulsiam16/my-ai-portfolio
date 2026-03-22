@@ -152,7 +152,7 @@ const PageTransition = ({ children }: { children: ReactNode }) => (
 
 // --- Pages ---
 
-const CyberCharacter = ({ character }: { character: typeof portfolioData.characters[0] }) => {
+const CyberCharacter = ({ character, position = "center" }: { character: typeof portfolioData.characters[0], position?: "left" | "right" | "center" }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [activeFeature, setActiveFeature] = useState<string | null>(null);
 
@@ -163,87 +163,102 @@ const CyberCharacter = ({ character }: { character: typeof portfolioData.charact
   ];
 
   return (
-    <div className="relative w-full max-w-sm mx-auto aspect-square flex items-center justify-center">
-      <motion.div 
-        animate={{ rotate: 360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-0 border border-cyber-cyan/10 rounded-full"
-      />
-      <motion.div 
-        animate={{ rotate: -360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-4 border border-cyber-pink/10 rounded-full"
-      />
-
+    <div className={`relative w-full max-w-sm flex items-center justify-center ${
+      position === "left" ? "mr-auto" : position === "right" ? "ml-auto" : "mx-auto"
+    } aspect-square`}>
+      {/* Floating Animation Wrapper */}
       <motion.div
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-        whileHover={{ scale: 1.05 }}
-        className="relative z-10 w-48 h-48 glass-panel rounded-full overflow-hidden border-cyber-cyan/30 cursor-pointer group"
-        onClick={() => setActiveFeature(activeFeature ? null : 'status')}
+        animate={{ 
+          y: [0, -20, 0],
+          rotate: [0, 2, -2, 0]
+        }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="relative w-full h-full flex items-center justify-center"
       >
-        <HUDCorners />
-        <img 
-          src={character.image} 
-          alt={character.name} 
-          className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-500"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent opacity-40" />
-        
         <motion.div 
-          animate={{ top: ['0%', '100%', '0%'] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-          className="absolute left-0 w-full h-0.5 bg-cyber-cyan/50 z-20"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 border border-cyber-cyan/10 rounded-full"
         />
+        <motion.div 
+          animate={{ rotate: -360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-4 border border-cyber-pink/10 rounded-full"
+        />
+
+        <motion.div
+          onHoverStart={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+          whileHover={{ scale: 1.1 }}
+          className="relative z-10 w-48 h-48 glass-panel rounded-full overflow-hidden border-cyber-cyan/30 cursor-pointer group"
+          onClick={() => setActiveFeature(activeFeature ? null : 'status')}
+        >
+          <HUDCorners />
+          <img 
+            src={character.image} 
+            alt={character.name} 
+            className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent opacity-40" />
+          
+          {/* Scanning Line */}
+          <motion.div 
+            animate={{ top: ['0%', '100%', '0%'] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            className="absolute left-0 w-full h-0.5 bg-cyber-cyan/50 z-20"
+          />
+        </motion.div>
+
+        {/* Floating Feature Buttons */}
+        <AnimatePresence>
+          {isHovered && (
+            <>
+              {features.map((f, i) => (
+                <motion.button
+                  key={f.id}
+                  initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    x: Math.cos((i * 120 * Math.PI) / 180) * 140,
+                    y: Math.sin((i * 120 * Math.PI) / 180) * 140
+                  }}
+                  exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                  whileHover={{ scale: 1.2 }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveFeature(f.id);
+                  }}
+                  className="absolute z-30 w-12 h-12 glass-panel rounded-full flex items-center justify-center border-cyber-cyan/40 hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all"
+                >
+                  <f.icon className="w-5 h-5 text-cyber-cyan" />
+                </motion.button>
+              ))}
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Feature Detail Overlay */}
+        <AnimatePresence>
+          {activeFeature && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-64 glass-panel p-4 z-40 text-center"
+            >
+              <HUDCorners />
+              <h4 className="text-cyber-cyan font-black uppercase tracking-widest text-[10px] mb-1">
+                {features.find(f => f.id === activeFeature)?.label}
+              </h4>
+              <p className="text-white text-[9px] font-mono">
+                {features.find(f => f.id === activeFeature)?.detail}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
-
-      <AnimatePresence>
-        {isHovered && (
-          <>
-            {features.map((f, i) => (
-              <motion.button
-                key={f.id}
-                initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1,
-                  x: Math.cos((i * 120 * Math.PI) / 180) * 130,
-                  y: Math.sin((i * 120 * Math.PI) / 180) * 130
-                }}
-                exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-                whileHover={{ scale: 1.2 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveFeature(f.id);
-                }}
-                className="absolute z-30 w-10 h-10 glass-panel rounded-full flex items-center justify-center border-cyber-cyan/40 hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all"
-              >
-                <f.icon className="w-4 h-4 text-cyber-cyan" />
-              </motion.button>
-            ))}
-          </>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {activeFeature && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-56 glass-panel p-3 z-40 text-center"
-          >
-            <HUDCorners />
-            <h4 className="text-cyber-cyan font-black uppercase tracking-widest text-[10px] mb-1">
-              {features.find(f => f.id === activeFeature)?.label}
-            </h4>
-            <p className="text-white text-[9px] font-mono">
-              {features.find(f => f.id === activeFeature)?.detail}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };
@@ -965,13 +980,24 @@ const Projects = () => {
   return (
     <PageTransition>
       <div className="section-padding max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-          <div>
-            <h2 className="text-5xl md:text-7xl font-black mb-6">PROJECT <span className="text-cyber-indigo">ARCHIVES</span></h2>
-            <p className="text-slate-400 max-w-xl font-medium">A collection of experimental and production-ready implementations.</p>
+        <div className="flex flex-col lg:flex-row gap-16 items-start mb-20">
+          <div className="flex-1">
+            <h2 className="text-5xl md:text-8xl font-black mb-8 leading-[0.85]">PROJECT <br /><span className="text-cyber-indigo">ARCHIVES</span></h2>
+            <p className="text-xl text-slate-400 max-w-2xl font-medium leading-relaxed">
+              A collection of experimental and production-ready implementations.
+            </p>
           </div>
-          <div className="flex gap-4">
-            <div className="px-6 py-3 glass-panel text-xs font-bold uppercase tracking-widest border-cyber-indigo/30">Total: {portfolioData.projects.length}</div>
+          
+          {/* Character Interaction */}
+          <div className="w-full lg:w-80">
+            <div className="glass-panel p-8 text-center relative">
+              <HUDCorners />
+              <h3 className="text-xs font-black text-cyber-indigo uppercase tracking-[0.2em] mb-6">System Designer</h3>
+              <CyberCharacter character={portfolioData.characters[1]} />
+              <p className="mt-8 text-slate-400 text-[10px] font-medium leading-relaxed">
+                "THE ARCHITECT is visualizing the blueprint nodes. Click him to explore the project structure."
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1214,7 +1240,7 @@ const AboutTechStack = () => {
 
   return (
     <PageTransition>
-      <div className="section-padding max-w-5xl mx-auto">
+      <div className="section-padding max-w-7xl mx-auto">
         <button 
           onClick={() => navigate('/about')}
           className="flex items-center gap-2 text-cyber-pink font-bold uppercase tracking-widest text-xs mb-12 hover:translate-x-[-4px] transition-transform"
@@ -1222,49 +1248,67 @@ const AboutTechStack = () => {
           <ArrowLeft className="w-4 h-4" /> Back to Identity
         </button>
 
-        <h2 className="text-5xl md:text-7xl font-black mb-16">CORE <span className="text-cyber-pink">STACK</span></h2>
+        <div className="flex flex-col lg:flex-row gap-16 items-start">
+          <div className="flex-1">
+            <h2 className="text-5xl md:text-7xl font-black mb-16">CORE <span className="text-cyber-pink">STACK</span></h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {categories.map((cat, idx) => (
-            <motion.div
-              key={cat}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="glass-panel p-8 relative"
-            >
-              <HUDCorners />
-              <h3 className="text-xl font-black mb-8 uppercase tracking-widest text-cyber-pink flex items-center gap-3">
-                {cat === "Frontend" && <Monitor className="w-6 h-6" />}
-                {cat === "Backend" && <Server className="w-6 h-6" />}
-                {cat === "Data Science" && <Database className="w-6 h-6" />}
-                {cat === "AI Automation" && <Workflow className="w-6 h-6" />}
-                {cat}
-              </h3>
-              <div className="space-y-6 relative z-10">
-                {portfolioData.skills.filter(s => s.category === cat).map(skill => (
-                  <div key={skill.name} className="group/skill">
-                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2">
-                      <span className="text-white group-hover/skill:text-cyber-pink transition-colors">{skill.name}</span>
-                      <span className="text-cyber-pink">{skill.level}%</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden relative">
-                      <motion.div 
-                        initial={{ width: 0 }} 
-                        whileInView={{ width: `${skill.level}%` }} 
-                        className="h-full bg-cyber-pink shadow-[0_0_10px_rgba(244,114,182,0.5)]" 
-                      />
-                    </div>
-                    {/* Contextual Image on Hover */}
-                    <div className="absolute inset-0 -z-10 opacity-0 group-hover/skill:opacity-5 transition-opacity pointer-events-none">
-                      <img src={`https://picsum.photos/seed/${skill.name}/600/400?grayscale`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {categories.map((cat, idx) => (
+                <motion.div
+                  key={cat}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="glass-panel p-8 relative overflow-hidden group"
+                >
+                  <HUDCorners />
+                  <div className="absolute top-0 left-0 w-1 h-full bg-cyber-pink/20 group-hover:bg-cyber-pink transition-colors" />
+                  
+                  <h3 className="text-xl font-black mb-8 uppercase tracking-widest text-cyber-pink flex items-center gap-3">
+                    {cat === "Frontend" && <Monitor className="w-6 h-6" />}
+                    {cat === "Backend" && <Server className="w-6 h-6" />}
+                    {cat === "Data Science" && <Database className="w-6 h-6" />}
+                    {cat === "AI Automation" && <Workflow className="w-6 h-6" />}
+                    {cat}
+                  </h3>
+                  <div className="space-y-6 relative z-10">
+                    {portfolioData.skills.filter(s => s.category === cat).map(skill => (
+                      <div key={skill.name} className="group/skill">
+                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2">
+                          <span className="text-white group-hover/skill:text-cyber-pink transition-colors">{skill.name}</span>
+                          <span className="text-cyber-pink">{skill.level}%</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden relative">
+                          <motion.div 
+                            initial={{ width: 0 }} 
+                            whileInView={{ width: `${skill.level}%` }} 
+                            className="h-full bg-cyber-pink shadow-[0_0_10px_rgba(244,114,182,0.5)]" 
+                          />
+                        </div>
+                        {/* Contextual Image on Hover */}
+                        <div className="absolute inset-0 -z-10 opacity-0 group-hover/skill:opacity-5 transition-opacity pointer-events-none">
+                          <img src={`https://picsum.photos/seed/${skill.name}/600/400?grayscale`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Character Interaction */}
+          <div className="w-full lg:w-80 sticky top-32">
+            <div className="glass-panel p-8 text-center">
+              <HUDCorners />
+              <h3 className="text-xs font-black text-cyber-pink uppercase tracking-[0.2em] mb-6">Logic Engineer</h3>
+              <CyberCharacter character={portfolioData.characters[2]} />
+              <p className="mt-8 text-slate-400 text-[10px] font-medium leading-relaxed">
+                "CODE_STRIKER is currently optimizing the backend neural pathways. Click him to see active logic flows."
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </PageTransition>

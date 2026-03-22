@@ -91,21 +91,30 @@
   "characters": [
     {
       "id": "neural-core",
-      "name": "NEURAL CORE v2.4",
+      "name": "CORE_AI v2.4",
       "role": "System Overseer",
       "status": "Online",
       "interaction": "Click to initiate system diagnostic.",
-      "image": "https://picsum.photos/seed/cyber-robot/400/400",
-      "details": "The primary intelligence governing this digital domain. Specialized in memory management and neural routing."
+      "image": "https://picsum.photos/seed/sci-fi-robot-head/400/400",
+      "details": "A humanoid AI interface specialized in neural routing and system-wide optimization."
     },
     {
-      "id": "data-sentinel",
-      "name": "DATA SENTINEL",
-      "role": "Archive Guardian",
-      "status": "Scanning",
-      "interaction": "Click to decrypt hidden archives.",
-      "image": "https://picsum.photos/seed/cyber-eye/400/400",
-      "details": "Monitors all data flows and ensures the integrity of the project archives."
+      "id": "the-architect",
+      "name": "THE ARCHITECT",
+      "role": "System Designer",
+      "status": "Visualizing",
+      "interaction": "Click to view blueprint nodes.",
+      "image": "https://picsum.photos/seed/cyber-man-architect/400/400",
+      "details": "A digital entity that constructs complex system architectures from raw data streams."
+    },
+    {
+      "id": "the-coder",
+      "name": "CODE_STRIKER",
+      "role": "Logic Engineer",
+      "status": "Compiling",
+      "interaction": "Click to see active logic flows.",
+      "image": "https://picsum.photos/seed/cyber-cartoon-hacker/400/400",
+      "details": "A fast-moving digital sprite that optimizes low-level C code and neural pathways."
     }
   ],
   "research": [
