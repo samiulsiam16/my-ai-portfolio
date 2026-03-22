@@ -21,35 +21,51 @@
   ],
   "projects": [
     {
+      "id": "c-utils",
       "title": "C System Utilities",
       "description": "A collection of mini-projects built in C to understand memory management and system-level programming.",
-      "tags": ["C", "Low-level"],
-      "image": "https://picsum.photos/seed/c-code/800/600",
-      "link": "#",
-      "code": "int main() {\n  printf(\"Hello, System!\\n\");\n  return 0;\n}"
+      "longDescription": "This archive contains various system-level utilities implemented in pure C. It explores manual memory allocation, pointer arithmetic, and low-level I/O operations. Key features include a custom memory allocator, a basic shell implementation, and various data structure implementations (Linked Lists, Hash Maps) optimized for performance.",
+      "tags": ["C", "Low-level", "Systems"],
+      "image": "https://picsum.photos/seed/c-code/1200/800",
+      "link": "https://github.com",
+      "features": ["Custom Memory Allocator", "Process Management", "Socket Programming Basics"],
+      "techStack": ["C", "GCC", "Make", "Valgrind"]
     },
     {
+      "id": "py-insights",
       "title": "Python Data Insights",
       "description": "Mini projects using Pandas and Seaborn to visualize interesting datasets and find hidden patterns.",
+      "longDescription": "A data science exploration project focusing on extracting meaningful insights from complex datasets. Using the power of Python's ecosystem, I've built automated pipelines for data cleaning, statistical analysis, and high-fidelity visualization. Projects include stock market trend analysis and social media sentiment tracking.",
       "tags": ["Python", "Pandas", "Seaborn"],
-      "image": "https://picsum.photos/seed/python-data/800/600",
-      "link": "#",
-      "code": "import pandas as pd\ndf = pd.read_csv('data.csv')\ndf.head()"
+      "image": "https://picsum.photos/seed/python-data/1200/800",
+      "link": "https://github.com",
+      "features": ["Automated Data Cleaning", "Statistical Modeling", "Interactive Dashboards"],
+      "techStack": ["Python", "Pandas", "Seaborn", "Matplotlib", "Jupyter"]
     },
     {
+      "id": "ai-automation",
       "title": "AI Automation Flows",
       "description": "Building smart workflows using n8n and Zapier to automate repetitive tasks and integrate different apps.",
+      "longDescription": "Advanced automation architectures designed to bridge the gap between disparate SaaS platforms. These workflows leverage AI models for decision-making and data processing, significantly reducing manual overhead. Examples include automated lead qualification and multi-channel content distribution systems.",
       "tags": ["n8n", "Zapier", "Automation"],
-      "image": "https://picsum.photos/seed/ai-bot/800/600",
-      "link": "#"
+      "image": "https://picsum.photos/seed/ai-bot/1200/800",
+      "link": "https://github.com",
+      "features": ["Multi-step Logic", "Webhook Integration", "AI Agent Orchestration"],
+      "techStack": ["n8n", "Zapier", "OpenAI API", "JavaScript"]
     }
   ],
   "experience": [
     {
+      "id": "diu-student",
       "company": "Daffodil International University",
       "role": "Software Engineering Student",
       "period": "2023 - Present",
-      "description": "Learning core software engineering principles, data structures, and algorithms."
+      "description": "Learning core software engineering principles, data structures, and algorithms.",
+      "details": [
+        "Maintaining a high CGPA while actively participating in programming contests.",
+        "Leading student study groups for Data Structures and Algorithms.",
+        "Developing internal tools for student project management."
+      ]
     }
   ],
   "qualities": [
