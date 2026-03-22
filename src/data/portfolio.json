@@ -52,6 +52,18 @@
       "description": "Learning core software engineering principles, data structures, and algorithms."
     }
   ],
+  "qualities": [
+    { "title": "Fast Learner", "description": "Quickly adapting to new technologies and frameworks, from low-level C to modern AI tools." },
+    { "title": "Problem Solver", "description": "Approaching complex logic with a systematic mindset, especially in system-level programming." },
+    { "title": "AI Enthusiast", "description": "Passionate about automating workflows and exploring the potential of machine learning." },
+    { "title": "Team Player", "description": "Collaborative and communicative, thriving in group projects and academic environments." }
+  ],
+  "services": [
+    { "title": "AI Automation", "description": "Building custom workflows with n8n and Zapier to automate your business processes." },
+    { "title": "Backend Development", "description": "Developing robust APIs and server-side logic using Python, Java, and C# .NET." },
+    { "title": "Data Visualization", "description": "Turning raw data into actionable insights with Python, Pandas, and Seaborn." },
+    { "title": "System Programming", "description": "Writing efficient, low-level system utilities and memory-safe code in C." }
+  ],
   "education": [
     {
       "school": "Daffodil International University",
