@@ -87,5 +87,59 @@
       "period": "2023 - 2027",
       "description": "Focusing on building a strong foundation in software development and AI."
     }
+  ],
+  "characters": [
+    {
+      "id": "neural-core",
+      "name": "NEURAL CORE v2.4",
+      "role": "System Overseer",
+      "status": "Online",
+      "interaction": "Click to initiate system diagnostic.",
+      "image": "https://picsum.photos/seed/cyber-robot/400/400",
+      "details": "The primary intelligence governing this digital domain. Specialized in memory management and neural routing."
+    },
+    {
+      "id": "data-sentinel",
+      "name": "DATA SENTINEL",
+      "role": "Archive Guardian",
+      "status": "Scanning",
+      "interaction": "Click to decrypt hidden archives.",
+      "image": "https://picsum.photos/seed/cyber-eye/400/400",
+      "details": "Monitors all data flows and ensures the integrity of the project archives."
+    }
+  ],
+  "research": [
+    {
+      "title": "Neural Network Optimization in C",
+      "description": "Exploring low-level memory optimizations for lightweight AI models.",
+      "status": "In Progress",
+      "tags": ["C", "AI", "Optimization"]
+    },
+    {
+      "title": "Automated Lead Scoring with n8n",
+      "description": "A study on using multi-agent systems for real-time lead qualification.",
+      "status": "Completed",
+      "tags": ["n8n", "AI", "Business"]
+    }
+  ],
+  "systemStatus": [
+    { "label": "CPU LOAD", "value": 42, "unit": "%" },
+    { "label": "MEMORY USAGE", "value": 68, "unit": "%" },
+    { "label": "NEURAL SYNC", "value": 94, "unit": "%" },
+    { "label": "UPTIME", "value": 99.9, "unit": "%" }
+  ],
+  "systemLogs": [
+    { "timestamp": "09:00:01", "event": "NEURAL_CORE_INITIALIZED", "status": "OK" },
+    { "timestamp": "09:05:22", "event": "ARCHIVE_DECRYPTION_START", "status": "PENDING" },
+    { "timestamp": "09:12:45", "event": "DATA_SENTINEL_SCAN_COMPLETE", "status": "OK" },
+    { "timestamp": "09:15:10", "event": "UNAUTHORIZED_ACCESS_BLOCKED", "status": "WARN" },
+    { "timestamp": "09:20:33", "event": "MEMORY_OPTIMIZATION_SYNC", "status": "OK" }
+  ],
+  "neuralMap": [
+    { "id": "node-1", "label": "C_SYSTEMS", "x": 20, "y": 30, "type": "CORE" },
+    { "id": "node-2", "label": "PYTHON_AI", "x": 50, "y": 20, "type": "RESEARCH" },
+    { "id": "node-3", "label": "AUTOMATION_FLOW", "x": 80, "y": 40, "type": "SERVICE" },
+    { "id": "node-4", "label": "DATA_INSIGHTS", "x": 40, "y": 70, "type": "DATA" },
+    { "id": "node-5", "label": "NEURAL_SYNC", "x": 70, "y": 80, "type": "CORE" }
   ]
 }

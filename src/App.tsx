@@ -8,7 +8,10 @@ import {
   ShieldCheck, Globe, Menu, X, Monitor, 
   Cpu as Processor, HardDrive, Wifi, Lock,
   ArrowLeft, CheckCircle2, AlertCircle, Send,
-  Server, Smartphone, Globe2, Bot, Workflow
+  Server, Smartphone, Globe2, Bot, Workflow,
+  Eye, Shield, Fingerprint, Radio, Zap as Energy,
+  Activity as Pulse, BarChart3, BookOpen, Binary,
+  Microscope, Compass, Settings, Power
 } from "lucide-react";
 import { useState, useEffect, ReactNode, useRef, FormEvent } from "react";
 import portfolioData from "./data/portfolio.json";
@@ -149,6 +152,444 @@ const PageTransition = ({ children }: { children: ReactNode }) => (
 
 // --- Pages ---
 
+const CyberCharacter = ({ character }: { character: typeof portfolioData.characters[0] }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeFeature, setActiveFeature] = useState<string | null>(null);
+
+  const features = [
+    { id: 'status', icon: Activity, label: 'Status', detail: character.status },
+    { id: 'role', icon: User, label: 'Role', detail: character.role },
+    { id: 'info', icon: Sparkles, label: 'Details', detail: character.details },
+  ];
+
+  return (
+    <div className="relative w-full max-w-sm mx-auto aspect-square flex items-center justify-center">
+      <motion.div 
+        animate={{ rotate: 360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 border border-cyber-cyan/10 rounded-full"
+      />
+      <motion.div 
+        animate={{ rotate: -360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-4 border border-cyber-pink/10 rounded-full"
+      />
+
+      <motion.div
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+        whileHover={{ scale: 1.05 }}
+        className="relative z-10 w-48 h-48 glass-panel rounded-full overflow-hidden border-cyber-cyan/30 cursor-pointer group"
+        onClick={() => setActiveFeature(activeFeature ? null : 'status')}
+      >
+        <HUDCorners />
+        <img 
+          src={character.image} 
+          alt={character.name} 
+          className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-500"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent opacity-40" />
+        
+        <motion.div 
+          animate={{ top: ['0%', '100%', '0%'] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+          className="absolute left-0 w-full h-0.5 bg-cyber-cyan/50 z-20"
+        />
+      </motion.div>
+
+      <AnimatePresence>
+        {isHovered && (
+          <>
+            {features.map((f, i) => (
+              <motion.button
+                key={f.id}
+                initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: 1,
+                  x: Math.cos((i * 120 * Math.PI) / 180) * 130,
+                  y: Math.sin((i * 120 * Math.PI) / 180) * 130
+                }}
+                exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                whileHover={{ scale: 1.2 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveFeature(f.id);
+                }}
+                className="absolute z-30 w-10 h-10 glass-panel rounded-full flex items-center justify-center border-cyber-cyan/40 hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all"
+              >
+                <f.icon className="w-4 h-4 text-cyber-cyan" />
+              </motion.button>
+            ))}
+          </>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {activeFeature && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-56 glass-panel p-3 z-40 text-center"
+          >
+            <HUDCorners />
+            <h4 className="text-cyber-cyan font-black uppercase tracking-widest text-[10px] mb-1">
+              {features.find(f => f.id === activeFeature)?.label}
+            </h4>
+            <p className="text-white text-[9px] font-mono">
+              {features.find(f => f.id === activeFeature)?.detail}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const NeuralMap = () => {
+  const navigate = useNavigate();
+  return (
+    <PageTransition>
+      <div className="section-padding max-w-6xl mx-auto">
+        <button 
+          onClick={() => navigate('/about')}
+          className="flex items-center gap-2 text-cyber-cyan font-bold uppercase tracking-widest text-xs mb-12 hover:translate-x-[-4px] transition-transform"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Identity
+        </button>
+
+        <h2 className="text-5xl md:text-7xl font-black mb-16">NEURAL <span className="text-cyber-cyan">MAP</span></h2>
+
+        <div className="relative h-[600px] glass-panel border-white/5 overflow-hidden">
+          <HUDCorners />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,211,238,0.05),transparent_70%)]" />
+          
+          {/* SVG Connections */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none">
+            {portfolioData.neuralMap.map((node, i) => {
+              if (i === 0) return null;
+              const prev = portfolioData.neuralMap[i - 1];
+              return (
+                <motion.line
+                  key={`line-${i}`}
+                  x1={`${prev.x}%`}
+                  y1={`${prev.y}%`}
+                  x2={`${node.x}%`}
+                  y2={`${node.y}%`}
+                  stroke="rgba(34,211,238,0.2)"
+                  strokeWidth="1"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 2, delay: i * 0.2 }}
+                />
+              );
+            })}
+          </svg>
+
+          {/* Nodes */}
+          {portfolioData.neuralMap.map((node, idx) => (
+            <motion.div
+              key={node.id}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: idx * 0.1 }}
+              style={{ left: `${node.x}%`, top: `${node.y}%` }}
+              className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+            >
+              <div className="w-4 h-4 rounded-full bg-cyber-cyan/20 border border-cyber-cyan group-hover:scale-150 group-hover:bg-cyber-cyan transition-all duration-300" />
+              <div className="absolute top-6 left-1/2 -translate-x-1/2 whitespace-nowrap glass-panel px-3 py-1 text-[8px] font-black tracking-widest text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                {node.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </PageTransition>
+  );
+};
+
+const SystemLogs = () => {
+  const navigate = useNavigate();
+  const [logs, setLogs] = useState(portfolioData.systemLogs);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newLog = {
+        timestamp: new Date().toLocaleTimeString(),
+        event: "NEURAL_SYNC_HEARTBEAT",
+        status: "OK"
+      };
+      setLogs(prev => [...prev.slice(-14), newLog]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <PageTransition>
+      <div className="section-padding max-w-4xl mx-auto">
+        <button 
+          onClick={() => navigate('/about')}
+          className="flex items-center gap-2 text-cyber-pink font-bold uppercase tracking-widest text-xs mb-12 hover:translate-x-[-4px] transition-transform"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Identity
+        </button>
+
+        <h2 className="text-5xl md:text-7xl font-black mb-16">SYSTEM <span className="text-cyber-pink">LOGS</span></h2>
+
+        <div className="glass-panel bg-black/40 p-8 font-mono text-xs text-cyber-pink h-[500px] overflow-hidden relative">
+          <HUDCorners />
+          <div className="space-y-2">
+            {logs.map((log, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex gap-4"
+              >
+                <span className="text-slate-500">[{log.timestamp}]</span>
+                <span className="text-white">{log.event}</span>
+                <span className={`ml-auto font-black ${
+                  log.status === 'OK' ? 'text-cyber-cyan' : 'text-cyber-pink'
+                }`}>{log.status}</span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="absolute bottom-8 left-8 animate-pulse">_</div>
+        </div>
+      </div>
+    </PageTransition>
+  );
+};
+
+const NeuralAvatar = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [activeFeature, setActiveFeature] = useState<string | null>(null);
+
+  const features = [
+    { id: 'core', icon: Cpu, label: 'Neural Core', detail: 'Processing at 4.2 GHz' },
+    { id: 'shield', icon: Shield, label: 'Security', detail: 'AES-256 Encryption' },
+    { id: 'data', icon: Database, label: 'Archive', detail: '1.2 PB Indexed' },
+  ];
+
+  return (
+    <div className="relative w-full max-w-md mx-auto aspect-square flex items-center justify-center">
+      {/* Background Rings */}
+      <motion.div 
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 border border-cyber-cyan/20 rounded-full border-dashed"
+      />
+      <motion.div 
+        animate={{ rotate: -360 }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-8 border border-cyber-pink/20 rounded-full border-dashed"
+      />
+
+      {/* Main Avatar Container */}
+      <motion.div
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+        whileHover={{ scale: 1.05 }}
+        className="relative z-10 w-64 h-64 glass-panel rounded-full overflow-hidden border-cyber-cyan/40 cursor-pointer group"
+        onClick={() => setActiveFeature(activeFeature ? null : 'core')}
+      >
+        <HUDCorners />
+        <img 
+          src={portfolioData.characters[0].image} 
+          alt="Neural Core" 
+          className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-deep-slate to-transparent opacity-60" />
+        
+        {/* Scanning Line */}
+        <motion.div 
+          animate={{ top: ['0%', '100%', '0%'] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          className="absolute left-0 w-full h-0.5 bg-cyber-cyan shadow-[0_0_15px_rgba(34,211,238,0.8)] z-20"
+        />
+      </motion.div>
+
+      {/* Floating Feature Buttons */}
+      <AnimatePresence>
+        {isHovered && (
+          <>
+            {features.map((f, i) => (
+              <motion.button
+                key={f.id}
+                initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: 1,
+                  x: Math.cos((i * 120 * Math.PI) / 180) * 160,
+                  y: Math.sin((i * 120 * Math.PI) / 180) * 160
+                }}
+                exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                whileHover={{ scale: 1.2 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveFeature(f.id);
+                }}
+                className="absolute z-30 w-12 h-12 glass-panel rounded-full flex items-center justify-center border-cyber-cyan/50 hover:border-cyber-cyan hover:bg-cyber-cyan/10 transition-all"
+              >
+                <f.icon className="w-5 h-5 text-cyber-cyan" />
+              </motion.button>
+            ))}
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Feature Detail Overlay */}
+      <AnimatePresence>
+        {activeFeature && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-64 glass-panel p-4 z-40 text-center"
+          >
+            <HUDCorners />
+            <h4 className="text-cyber-cyan font-black uppercase tracking-widest text-xs mb-1">
+              {features.find(f => f.id === activeFeature)?.label}
+            </h4>
+            <p className="text-white text-[10px] font-mono">
+              {features.find(f => f.id === activeFeature)?.detail}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const SystemStatus = () => {
+  const navigate = useNavigate();
+  return (
+    <PageTransition>
+      <div className="section-padding max-w-6xl mx-auto">
+        <button 
+          onClick={() => navigate('/about')}
+          className="flex items-center gap-2 text-cyber-cyan font-bold uppercase tracking-widest text-xs mb-12 hover:translate-x-[-4px] transition-transform"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Identity
+        </button>
+
+        <h2 className="text-5xl md:text-7xl font-black mb-16">SYSTEM <span className="text-cyber-cyan">HEALTH</span></h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {portfolioData.systemStatus.map((stat, idx) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              className="glass-panel p-6 relative overflow-hidden group"
+            >
+              <HUDCorners />
+              <div className="absolute top-0 left-0 w-1 h-full bg-cyber-cyan/20 group-hover:bg-cyber-cyan transition-colors" />
+              <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">{stat.label}</div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-black text-white">{stat.value}</span>
+                <span className="text-cyber-cyan font-mono text-sm">{stat.unit}</span>
+              </div>
+              <div className="mt-6 w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: `${stat.value}%` }}
+                  className="h-full bg-cyber-cyan shadow-[0_0_10px_rgba(34,211,238,0.5)]"
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="glass-panel p-8 relative">
+            <HUDCorners />
+            <h3 className="text-xl font-black mb-6 uppercase tracking-widest flex items-center gap-3">
+              <Radio className="w-5 h-5 text-cyber-pink" /> Neural Sync Status
+            </h3>
+            <div className="space-y-4">
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse" />
+                    <span className="text-xs font-mono text-slate-300">NODE_0{i} CONNECTION</span>
+                  </div>
+                  <span className="text-[10px] font-black text-cyber-cyan">STABLE</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="glass-panel p-8 relative flex flex-col items-center justify-center text-center">
+            <HUDCorners />
+            <div className="w-24 h-24 rounded-full border-4 border-cyber-pink/20 border-t-cyber-pink animate-spin mb-6" />
+            <h3 className="text-xl font-black mb-2 uppercase tracking-widest">Optimization in Progress</h3>
+            <p className="text-slate-400 text-sm font-medium">System is currently re-indexing neural pathways for peak performance.</p>
+          </div>
+        </div>
+      </div>
+    </PageTransition>
+  );
+};
+
+const Research = () => {
+  const navigate = useNavigate();
+  return (
+    <PageTransition>
+      <div className="section-padding max-w-5xl mx-auto">
+        <button 
+          onClick={() => navigate('/about')}
+          className="flex items-center gap-2 text-cyber-pink font-bold uppercase tracking-widest text-xs mb-12 hover:translate-x-[-4px] transition-transform"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back to Identity
+        </button>
+
+        <h2 className="text-5xl md:text-7xl font-black mb-16">RESEARCH <span className="text-cyber-pink">NODES</span></h2>
+
+        <div className="grid grid-cols-1 gap-8">
+          {portfolioData.research.map((res, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="glass-panel p-10 relative group overflow-hidden"
+            >
+              <HUDCorners />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyber-pink/5 -rotate-45 translate-x-16 -translate-y-16 group-hover:bg-cyber-pink/10 transition-all" />
+              
+              <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
+                      res.status === 'Completed' ? 'bg-cyber-cyan/20 text-cyber-cyan' : 'bg-cyber-pink/20 text-cyber-pink'
+                    }`}>
+                      {res.status}
+                    </span>
+                    <div className="flex gap-2">
+                      {res.tags.map(tag => (
+                        <span key={tag} className="text-[10px] font-mono text-slate-500">#{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <h3 className="text-3xl font-black mb-4 text-white group-hover:text-cyber-pink transition-colors">{res.title}</h3>
+                  <p className="text-slate-400 font-medium leading-relaxed max-w-2xl">{res.description}</p>
+                </div>
+                <button className="cyber-btn whitespace-nowrap">
+                  Access Data <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </PageTransition>
+  );
+};
+
 const Home = () => {
   const [booting, setBooting] = useState(true);
 
@@ -269,11 +710,12 @@ const About = () => {
             <p className="text-xl text-slate-400 leading-relaxed mb-8 font-medium">
               {portfolioData.personal.bio}
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <button 
                 onClick={() => navigate('/about/experience')}
-                className="glass-panel p-6 text-left hover:border-cyber-cyan group transition-all"
+                className="glass-panel p-6 text-left hover:border-cyber-cyan group transition-all relative overflow-hidden"
               >
+                <img src="https://picsum.photos/seed/experience/400/200?grayscale" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-10 transition-opacity" referrerPolicy="no-referrer" />
                 <div className="text-cyber-cyan font-mono text-xs mb-2 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Experience</div>
                 <div className="text-white font-bold flex items-center justify-between">
                   Archives <ChevronRight className="w-4 h-4" />
@@ -281,8 +723,9 @@ const About = () => {
               </button>
               <button 
                 onClick={() => navigate('/about/tech-stack')}
-                className="glass-panel p-6 text-left hover:border-cyber-pink group transition-all"
+                className="glass-panel p-6 text-left hover:border-cyber-pink group transition-all relative overflow-hidden"
               >
+                <img src="https://picsum.photos/seed/tech/400/200?grayscale" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-10 transition-opacity" referrerPolicy="no-referrer" />
                 <div className="text-cyber-pink font-mono text-xs mb-2 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Tech Stack</div>
                 <div className="text-white font-bold flex items-center justify-between">
                   Core <ChevronRight className="w-4 h-4" />
@@ -290,11 +733,52 @@ const About = () => {
               </button>
               <button 
                 onClick={() => navigate('/about/education')}
-                className="glass-panel p-6 text-left hover:border-cyber-indigo group transition-all"
+                className="glass-panel p-6 text-left hover:border-cyber-indigo group transition-all relative overflow-hidden"
               >
+                <img src="https://picsum.photos/seed/academy/400/200?grayscale" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-10 transition-opacity" referrerPolicy="no-referrer" />
                 <div className="text-cyber-indigo font-mono text-xs mb-2 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Education</div>
                 <div className="text-white font-bold flex items-center justify-between">
                   Academy <ChevronRight className="w-4 h-4" />
+                </div>
+              </button>
+              <button 
+                onClick={() => navigate('/about/research')}
+                className="glass-panel p-6 text-left hover:border-cyber-pink group transition-all relative overflow-hidden"
+              >
+                <img src="https://picsum.photos/seed/research/400/200?grayscale" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-10 transition-opacity" referrerPolicy="no-referrer" />
+                <div className="text-cyber-pink font-mono text-xs mb-2 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Research</div>
+                <div className="text-white font-bold flex items-center justify-between">
+                  Nodes <ChevronRight className="w-4 h-4" />
+                </div>
+              </button>
+              <button 
+                onClick={() => navigate('/about/status')}
+                className="glass-panel p-6 text-left hover:border-cyber-cyan group transition-all relative overflow-hidden"
+              >
+                <img src="https://picsum.photos/seed/status/400/200?grayscale" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-10 transition-opacity" referrerPolicy="no-referrer" />
+                <div className="text-cyber-cyan font-mono text-xs mb-2 uppercase tracking-widest group-hover:translate-x-1 transition-transform">System Status</div>
+                <div className="text-white font-bold flex items-center justify-between">
+                  Health <ChevronRight className="w-4 h-4" />
+                </div>
+              </button>
+              <button 
+                onClick={() => navigate('/about/neural-map')}
+                className="glass-panel p-6 text-left hover:border-cyber-cyan group transition-all relative overflow-hidden"
+              >
+                <img src="https://picsum.photos/seed/map/400/200?grayscale" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-10 transition-opacity" referrerPolicy="no-referrer" />
+                <div className="text-cyber-cyan font-mono text-xs mb-2 uppercase tracking-widest group-hover:translate-x-1 transition-transform">Neural Map</div>
+                <div className="text-white font-bold flex items-center justify-between">
+                  Network <ChevronRight className="w-4 h-4" />
+                </div>
+              </button>
+              <button 
+                onClick={() => navigate('/about/system-logs')}
+                className="glass-panel p-6 text-left hover:border-cyber-pink group transition-all relative overflow-hidden"
+              >
+                <img src="https://picsum.photos/seed/logs/400/200?grayscale" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-10 transition-opacity" referrerPolicy="no-referrer" />
+                <div className="text-cyber-pink font-mono text-xs mb-2 uppercase tracking-widest group-hover:translate-x-1 transition-transform">System Logs</div>
+                <div className="text-white font-bold flex items-center justify-between">
+                  Terminal <ChevronRight className="w-4 h-4" />
                 </div>
               </button>
             </div>
@@ -758,19 +1242,23 @@ const AboutTechStack = () => {
                 {cat === "AI Automation" && <Workflow className="w-6 h-6" />}
                 {cat}
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-6 relative z-10">
                 {portfolioData.skills.filter(s => s.category === cat).map(skill => (
-                  <div key={skill.name}>
+                  <div key={skill.name} className="group/skill">
                     <div className="flex justify-between text-[10px] font-black uppercase tracking-widest mb-2">
-                      <span className="text-white">{skill.name}</span>
+                      <span className="text-white group-hover/skill:text-cyber-pink transition-colors">{skill.name}</span>
                       <span className="text-cyber-pink">{skill.level}%</span>
                     </div>
-                    <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                    <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden relative">
                       <motion.div 
                         initial={{ width: 0 }} 
                         whileInView={{ width: `${skill.level}%` }} 
                         className="h-full bg-cyber-pink shadow-[0_0_10px_rgba(244,114,182,0.5)]" 
                       />
+                    </div>
+                    {/* Contextual Image on Hover */}
+                    <div className="absolute inset-0 -z-10 opacity-0 group-hover/skill:opacity-5 transition-opacity pointer-events-none">
+                      <img src={`https://picsum.photos/seed/${skill.name}/600/400?grayscale`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                     </div>
                   </div>
                 ))}
@@ -862,6 +1350,11 @@ const Contact = () => {
                   </a>
                 </div>
               </div>
+            </div>
+
+            <div className="glass-panel p-6 relative">
+              <HUDCorners />
+              <CyberCharacter character={portfolioData.characters[1]} />
             </div>
 
             <div className="glass-panel p-6 font-mono text-[10px] text-cyber-cyan/60">
@@ -1003,6 +1496,10 @@ function AppContent() {
             <Route path="/about/experience" element={<AboutExperience />} />
             <Route path="/about/tech-stack" element={<AboutTechStack />} />
             <Route path="/about/education" element={<AboutEducation />} />
+            <Route path="/about/research" element={<Research />} />
+            <Route path="/about/status" element={<SystemStatus />} />
+            <Route path="/about/neural-map" element={<NeuralMap />} />
+            <Route path="/about/system-logs" element={<SystemLogs />} />
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:id" element={<ProjectDetail />} />
